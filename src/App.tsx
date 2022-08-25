@@ -1,25 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect}          from 'react';
+import {HashRouter, Route, Routes} from "react-router-dom";
 
-function App() {
+import Login                   from "./components/Login";
+import SnackBar                from "./components/SnackBar";
+import {initializeBlogs}       from "./reducers/blogReducer";
+import {useAppDispatch}        from "./hooks";
+import {loginFromLocalStorage} from "./reducers/userReducer";
+import Signup                  from "./components/Signup";
+import Main                    from "./components/Main";
+import Blogs                   from "./components/Blog/Blogs";
+import BlogPage                from "./components/Blog/BlogPage";
+
+const App = () => {
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(initializeBlogs())
+    dispatch(loginFromLocalStorage())
+  }, [dispatch])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <HashRouter>
+        <Routes>
+          <Route path="/" element={<Main/>}>
+            <Route index element={<Blogs/>}/>
+            <Route path=":blogId" element={<BlogPage/>}/>
+          </Route>
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/signup" element={<Signup/>}/>
+        </Routes>
+      </HashRouter>
+      <SnackBar/>
+    </>
   );
 }
 
