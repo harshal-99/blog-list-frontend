@@ -10,7 +10,7 @@ const Comments: React.FC<{ blogId: string }> = ({blogId}) => {
   const {comments} = useAppSelector(selectComments)
   useEffect(() => {
     dispatch(addCommentsToStore(blogId))
-  }, [])
+  }, [blogId, dispatch])
 
   const commentsToRender: CommentType[] = []
 

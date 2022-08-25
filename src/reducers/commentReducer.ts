@@ -1,9 +1,8 @@
-import {BlogComments, CommentType, SnackBarStatus, UserType} from "../types";
-import {createSlice, PayloadAction}                          from "@reduxjs/toolkit";
-import {AppDispatch, AppState}                               from "../index";
-import commentService                                        from "../service/comment.service";
-import {setNotification}                                     from "./notificationReducer";
-import {AxiosError}                                          from "axios";
+import {CommentType, SnackBarStatus, UserType} from "../types";
+import {createSlice, PayloadAction}            from "@reduxjs/toolkit";
+import {AppDispatch, AppState}                 from "../index";
+import commentService                          from "../service/comment.service";
+import {setNotification}                       from "./notificationReducer";
 
 interface CommentReducerState {
   comments: {

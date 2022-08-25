@@ -8,7 +8,6 @@ import {Provider}          from "react-redux";
 import blogReducer         from "./reducers/blogReducer";
 import userReducer         from "./reducers/userReducer";
 import notificationReducer from "./reducers/notificationReducer";
-import {HashRouter}        from "react-router-dom";
 import commentReducer      from "./reducers/commentReducer";
 
 const root = ReactDOM.createRoot(
