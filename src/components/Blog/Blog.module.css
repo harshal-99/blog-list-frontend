@@ -1,0 +1,19 @@
+.flex-center {
+	display: flex;
+	/*justify-content: center;*/
+	align-items: center;
+}
+
+.margin-lr {
+	margin: 0 0.5rem;
+}
+
+#card:hover {
+	border: 2px solid dodgerblue;
+}
+
+.maxwidth {
+	overflow-x: scroll;
+	max-height: 6rem;
+
+}
