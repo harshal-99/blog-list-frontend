@@ -18,7 +18,7 @@ import {Link}                             from "react-router-dom";
 const Blog: React.FC<{
   blog: BlogType
 }> =
-  React.memo(({blog,}) => {
+  React.memo(({blog}) => {
     const {user} = useAppSelector(selectUser)
     const dispatch = useAppDispatch()
     const handleUpdateLike = async () => {
@@ -33,7 +33,7 @@ const Blog: React.FC<{
     const isAuthor = blog.userId === user?.id
 
     return (
-      <Card>
+      <Card style={{marginTop: "0.4rem"}}>
         <CardContent>
           <Box style={{display: "flex", justifyContent: "space-between"}}>
             <Typography variant="h5" component="h2">
