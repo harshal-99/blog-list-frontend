@@ -6,38 +6,48 @@ import {setNotification}                    from "./notificationReducer";
 import {AxiosError}                         from "axios";
 
 export interface BlogReducerState {
-  blogs: BlogType[]
+  blogs: {
+    [key: string]: BlogType
+  },
+  blogIds: string[]
 }
 
 const initialState: BlogReducerState = {
-  blogs: []
+  blogs: {},
+  blogIds: []
 }
 
 export const blogSlice = createSlice({
   name: "blogs",
   initialState,
   reducers: {
-    setBlogs: (state, action) => {
-      state.blogs = action.payload
-    },
-    addNewBlog: (state, action: PayloadAction<BlogType>) => {
-      state.blogs.push(action.payload)
-    },
-    updateLike(state, action: PayloadAction<{ id: string, likes: number }>) {
-      state.blogs.forEach(blog => {
-        if (blog!.id !== action.payload.id) return
-        blog!.likes = action.payload.likes
+    setBlogs(state, action: PayloadAction<BlogType[]>) {
+      action.payload.forEach(blog => {
+        if (state.blogIds.indexOf(blog!.id) === -1) {
+          state.blogs[blog!.id] = blog
+          state.blogIds.push(blog!.id)
+        }
       })
     },
+    addNewBlog(state, action: PayloadAction<BlogType>) {
+      if (state.blogIds.indexOf(action.payload!.id) === -1) {
+        state.blogs[action.payload!.id] = action.payload
+        state.blogIds.push(action.payload!.id)
+      }
+    },
+    updateLike(state, action: PayloadAction<{ id: string, likes: number }>) {
+      state.blogs[action.payload!.id]!.likes = action.payload.likes
+    },
     deleteBlog(state, action: PayloadAction<{ id: string }>) {
-      state.blogs = state.blogs.filter(blog => blog!.id !== action.payload.id)
+      delete state.blogs[action.payload.id]
+      state.blogIds = state.blogIds.filter(id => id !== action.payload.id)
     }
   }
 })
 
 export const {setBlogs, deleteBlog, addNewBlog, updateLike} = blogSlice.actions
 
-export const selectBlogs = (state: AppState) => state.blogs
+export const selectBlogIds = (state: AppState) => state.blogs.blogIds
 
 export default blogSlice.reducer
 

@@ -9,8 +9,8 @@ import Comments         from "../Comment/Comments";
 import CommentForm      from "../Comment/CommentForm";
 
 const BlogPage = () => {
-  const {blogId} = useParams()
-  const blog = useAppSelector(state => state.blogs.blogs.find(blog => blog!.id === blogId))
+  const {blogId} = useParams() as { blogId: string }
+  const blog = useAppSelector(state => state.blogs!.blogs[blogId])
   if (!blogId) return null
 
   if (!blog) return <div>Loading</div>
