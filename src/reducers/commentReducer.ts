@@ -8,12 +8,12 @@ interface CommentReducerState {
   comments: {
     [key: string]: CommentType
   }
-  allIds: string[]
+  commentIds: string[]
 }
 
 const initialState: CommentReducerState = {
   comments: {},
-  allIds: []
+  commentIds: []
 }
 
 export const commentSlice = createSlice({
@@ -23,13 +23,13 @@ export const commentSlice = createSlice({
     setComments(state, action: PayloadAction<CommentType[]>) {
       action.payload.forEach(comment => {
         state.comments[comment.id] = comment
-        if (state.allIds.indexOf(comment.id) === -1)
-          state.allIds.push(comment.id)
+        if (state.commentIds.indexOf(comment.id) === -1)
+          state.commentIds.push(comment.id)
       })
     },
     addComment(state, action: PayloadAction<CommentType>) {
       state.comments[action.payload.id] = action.payload
-      state.allIds.push(action.payload.id)
+      state.commentIds.push(action.payload.id)
     }
   }
 })
