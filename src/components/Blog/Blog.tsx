@@ -16,11 +16,14 @@ import {selectUser}                       from "../../reducers/userReducer";
 import {Link}                             from "react-router-dom";
 
 const Blog: React.FC<{
-  blog: BlogType
+  blogId: string
 }> =
-  React.memo(({blog}) => {
+  ({blogId}) => {
     const {user} = useAppSelector(selectUser)
+    const blog: BlogType = useAppSelector(state => state.blogs.blogs[blogId])
+
     const dispatch = useAppDispatch()
+
     const handleUpdateLike = async () => {
       dispatch(updateBlogLike(blog, user))
     }
@@ -61,6 +64,6 @@ const Blog: React.FC<{
         </CardActions>
       </Card>
     )
-  })
+  }
 
 export default Blog
